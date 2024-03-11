@@ -16,19 +16,19 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./frontend
+        working-directory: frontend
       
       - name: Run tests
         run: npm run test
-        working-directory: ./frontend
+        working-directory: frontend
 
       - name: Build frontend application
         run: npm run build
-        working-directory: ./frontend
+        working-directory: frontend
 
       - name: Lint frontend code
         run: npm run lint
-        working-directory: ./frontend  
+        working-directory: frontend  
 
   build_backend:
     runs-on: ubuntu-latest
@@ -40,19 +40,19 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./backend
+        working-directory: backend
       
       - name: Run tests
         run: npm run test
-        working-directory: ./backend
+        working-directory: backend
 
       - name: Build backend application
         run: npm run build
-        working-directory: ./backend
+        working-directory: backend
 
       - name: Lint backend code
         run: npm run lint
-        working-directory: ./backend
+        working-directory: backend
 
 
   build_auth:
@@ -65,19 +65,19 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./auth
+        working-directory: auth
 
       - name: Run tests
         run: npm run test
-        working-directory: ./auth
+        working-directory: auth
 
       - name: Build authentication service
         run: npm run build
-        working-directory: ./auth
+        working-directory: auth
 
       - name: Lint authentication code
         run: npm run lint
-        working-directory: ./auth
+        working-directory: auth
 
   build_expense:
     runs-on: ubuntu-latest
@@ -89,19 +89,19 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./expense
+        working-directory: expense
 
       - name: Run tests
         run: npm run test
-        working-directory: ./expense
+        working-directory: expense
 
       - name: Build expense service
         run: npm run build
-        working-directory: ./expense
+        working-directory: expense
 
       - name: Lint expense code
         run: npm run lint
-        working-directory: ./expense
+        working-directory: expense
 
   build_statistics:
     runs-on: ubuntu-latest
@@ -113,16 +113,16 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./statistics
+        working-directory: statistics
 
       - name: Run tests
         run: npm run test
-        working-directory: ./statistics
+        working-directory: statistics
 
       - name: Build statistics service
         run: npm run build
-        working-directory: ./statistics
+        working-directory: statistics
 
       - name: Lint statistics code
         run: npm run lint
-        working-directory: ./statistics
+        working-directory: statistics
