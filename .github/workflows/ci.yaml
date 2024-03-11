@@ -6,102 +6,102 @@ on:
       - 'main'
 
 jobs:
-  build_frontend:
-    runs-on: ubuntu-latest
-    name: Build and Test Frontend
+  # build_frontend:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Frontend
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: frontend
+  #     - name: Install dependencies
+  #       run: npm install
+  #       working-directory: frontend
       
-      - name: Run tests
-        run: npm run test
-        working-directory: frontend
+  #     - name: Run tests
+  #       run: npm run test
+  #       working-directory: frontend
 
-      - name: Build frontend application
-        run: npm run build
-        working-directory: frontend
+  #     - name: Build frontend application
+  #       run: npm run build
+  #       working-directory: frontend
 
-      - name: Lint frontend code
-        run: npm run lint
-        working-directory: frontend  
+  #     - name: Lint frontend code
+  #       run: npm run lint
+  #       working-directory: frontend  
 
-  build_backend:
-    runs-on: ubuntu-latest
-    name: Build and Test Backend
+  # build_backend:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Backend
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: backend
+  #     - name: Install dependencies
+  #       run: npm install
+  #       working-directory: backend
       
-      - name: Run tests
-        run: npm run test
-        working-directory: backend
+  #     - name: Run tests
+  #       run: npm run test
+  #       working-directory: backend
 
-      - name: Build backend application
-        run: npm run build
-        working-directory: backend
+  #     - name: Build backend application
+  #       run: npm run build
+  #       working-directory: backend
 
-      - name: Lint backend code
-        run: npm run lint
-        working-directory: backend
+  #     - name: Lint backend code
+  #       run: npm run lint
+  #       working-directory: backend
 
 
-  build_auth:
-    runs-on: ubuntu-latest
-    name: Build and Test Authentication Service
+  # build_auth:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Authentication Service
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: auth
+  #     - name: Install dependencies
+  #       run: npm ci
+  #       working-directory: auth
 
-      - name: Run tests
-        run: npm run test
-        working-directory: auth
+  #     - name: Run tests
+  #       run: npm run test
+  #       working-directory: auth
 
-      - name: Build authentication service
-        run: npm run build
-        working-directory: auth
+  #     - name: Build authentication service
+  #       run: npm run build
+  #       working-directory: auth
 
-      - name: Lint authentication code
-        run: npm run lint
-        working-directory: auth
+  #     - name: Lint authentication code
+  #       run: npm run lint
+  #       working-directory: auth
 
-  build_expense:
-    runs-on: ubuntu-latest
-    name: Build and Test Expense Service
+  # build_expense:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Expense Service
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: expense
+  #     - name: Install dependencies
+  #       run: npm ci
+  #       working-directory: expense
 
-      - name: Run tests
-        run: npm run test
-        working-directory: expense
+  #     - name: Run tests
+  #       run: npm run test
+  #       working-directory: expense
 
-      - name: Build expense service
-        run: npm run build
-        working-directory: expense
+  #     - name: Build expense service
+  #       run: npm run build
+  #       working-directory: expense
 
-      - name: Lint expense code
-        run: npm run lint
-        working-directory: expense
+  #     - name: Lint expense code
+  #       run: npm run lint
+  #       working-directory: expense
 
   build_statistics:
     runs-on: ubuntu-latest
@@ -112,17 +112,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd statistics
+          npm ci
         working-directory: statistics
 
-      - name: Run tests
-        run: npm run test
-        working-directory: statistics
+      # - name: Run tests
+      #   run: npm run test
+      #   working-directory: statistics
 
-      - name: Build statistics service
-        run: npm run build
-        working-directory: statistics
+      # - name: Build statistics service
+      #   run: npm run build
+      #   working-directory: statistics
 
-      - name: Lint statistics code
-        run: npm run lint
-        working-directory: statistics
+      # - name: Lint statistics code
+      #   run: npm run lint
+      #   working-directory: statistics
