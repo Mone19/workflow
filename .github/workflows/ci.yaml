@@ -3,7 +3,7 @@ name: 'Auth'
 on:
   push:
     branches:
-      - 'feature/**'
+      - 'main'
     paths:
       - 'auth/**'
   workflow_dispatch:
