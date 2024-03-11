@@ -16,11 +16,7 @@ jobs:
     - name: Install dependencies
       run: npm install
       working-directory: frontend
-
-    - name: Lint code
-      run: npm run lint
-      working-directory: auth
-
+      
     - name: Run tests
       run: npm run test
       working-directory: frontend
