@@ -1,0 +1,107 @@
+name: backend
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  build_backend:
+    runs-on: ubuntu-latest
+    name: Build and Test Backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: working-directory backend
+        working-directory: ../backend
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests
+        run: npm run test
+
+      - name: Build backend application
+        run: npm run build
+
+      - name: Lint backend code
+        run: npm run lint
+
+
+  # build_auth:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Authentication Service
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: main
+
+  #     - name: working-directory auth
+  #       working-directory: ../auth 
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: Run tests
+  #       run: npm run test
+
+  #     - name: Build authentication service
+  #       run: npm run build
+
+  #     - name: Lint authentication code
+  #       run: npm run lint
+
+  # build_expense:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Expense Service
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: main
+
+  #     - name: working-directory expense
+  #       working-directory: ../expense  
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: Run tests
+  #       run: npm run test
+
+  #     - name: Build expense service
+  #       run: npm run build
+
+  #     - name: Lint expense code
+  #       run: npm run lint
+
+  # build_statistics:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Test Statistics Service
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: main
+
+  #     - name: working-directory statistics
+  #       working-directory: ../statistics
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: Run tests
+  #       run: npm run test
+
+  #     - name: Build statistics service
+  #       run: npm run build
+
+  #     - name: Lint statistics code
+  #       run: npm run lint
