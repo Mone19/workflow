@@ -9,11 +9,13 @@ jobs:
   build_frontend:
     runs-on: ubuntu-latest
     name: Build and Test Frontend
+    defaults:
+      run:
+        working-directory: ./frontend
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        working-directory: ../frontend
 
       - name: Install dependencies
         run: npm install
