@@ -6,21 +6,103 @@ on:
       - 'main'
 
 jobs:
-  build:
+  build_frontend:
     runs-on: ubuntu-latest
+    name: Build and Test Frontend
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: npm install
-      working-directory: frontend
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
       
-    - name: Run tests
-      run: npm run test
-      working-directory: frontend
+      - name: Run tests
+        run: npm run test
+        working-directory: ./frontend
 
-    - name: Build application
-      run: npm run build
-      working-directory: frontend
+      - name: Build frontend application
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: lint 
+        run: npm run lint
+        working-directory: ./frontend  
+
+  build_backend:
+    runs-on: ubuntu-latest
+    name: Build and Test Backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./backend
+      
+      - name: Run tests
+        run: npm run test
+        working-directory: ./backend
+
+      - name: Build backend application
+        run: npm run build
+        working-directory: ./backend
+
+      - name: lint 
+        run: npm run lint
+        working-directory: ./backend
+
+
+  build_auth:
+      - name: ci
+        run:  npm ci
+        working-directory: ./auth
+
+      - name: lint 
+        run: npm run lint
+        working-directory: ./auth
+
+      - name: test
+        run: npm run test
+        working-directory: ./auth
+
+      - name: build
+        run: npm run build
+        working-directory: ./auth
+
+  build_expense:
+      - name: ci
+        run:  npm ci
+        working-directory: ./expense
+
+      - name: lint 
+        run: npm run lint
+        working-directory: ./expense
+
+      - name: test
+        run: npm run test
+        working-directory: ./expense
+
+      - name: build
+        run: npm run build
+        working-directory: ./expense
+
+  build_statistics:
+      - name: ci
+        run:  npm ci
+        working-directory: ./statistics
+
+      - name: lint 
+        run: npm run lint
+        working-directory: ./statistics
+
+      - name: test
+        run: npm run test
+        working-directory: ./statistics
+
+      - name: build
+        run: npm run build
+        working-directory: ./statistics           
+
