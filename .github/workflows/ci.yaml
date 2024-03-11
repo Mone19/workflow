@@ -26,7 +26,7 @@ jobs:
         run: npm run build
         working-directory: ./frontend
 
-      - name: lint 
+      - name: Lint frontend code
         run: npm run lint
         working-directory: ./frontend  
 
@@ -50,59 +50,79 @@ jobs:
         run: npm run build
         working-directory: ./backend
 
-      - name: lint 
+      - name: Lint backend code
         run: npm run lint
         working-directory: ./backend
 
 
   build_auth:
-      - name: ci
-        run:  npm ci
+    runs-on: ubuntu-latest
+    name: Build and Test Authentication Service
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
         working-directory: ./auth
 
-      - name: lint 
-        run: npm run lint
-        working-directory: ./auth
-
-      - name: test
+      - name: Run tests
         run: npm run test
         working-directory: ./auth
 
-      - name: build
+      - name: Build authentication service
         run: npm run build
+        working-directory: ./auth
+
+      - name: Lint authentication code
+        run: npm run lint
         working-directory: ./auth
 
   build_expense:
-      - name: ci
-        run:  npm ci
+    runs-on: ubuntu-latest
+    name: Build and Test Expense Service
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
         working-directory: ./expense
 
-      - name: lint 
-        run: npm run lint
-        working-directory: ./expense
-
-      - name: test
+      - name: Run tests
         run: npm run test
         working-directory: ./expense
 
-      - name: build
+      - name: Build expense service
         run: npm run build
+        working-directory: ./expense
+
+      - name: Lint expense code
+        run: npm run lint
         working-directory: ./expense
 
   build_statistics:
-      - name: ci
-        run:  npm ci
+    runs-on: ubuntu-latest
+    name: Build and Test Statistics Service
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
         working-directory: ./statistics
 
-      - name: lint 
-        run: npm run lint
-        working-directory: ./statistics
-
-      - name: test
+      - name: Run tests
         run: npm run test
         working-directory: ./statistics
 
-      - name: build
+      - name: Build statistics service
         run: npm run build
-        working-directory: ./statistics           
+        working-directory: ./statistics
 
+      - name: Lint statistics code
+        run: npm run lint
+        working-directory: ./statistics
