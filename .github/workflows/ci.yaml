@@ -1,33 +1,65 @@
-name: CI
+name: 'Auth'
 
 on:
   push:
     branches:
-      - 'main'
-
+      - 'feature/**'
+    paths:
+      - 'auth/**'
+  workflow_dispatch:
+  pull_request:
+    
 jobs:
-  build_frontend:
+  build-and-test:
     runs-on: ubuntu-latest
-    name: Build and Test Frontend
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: ./auth
 
     steps:
-      - name: Checkout repository
+      - name: checkout
         uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: npm install
-      
-      - name: Run tests
+        with:
+          ref: feature/github_workflows           
+      - name: ci
+        run:  npm ci
+      - name: lint 
+        run: npm run lint
+      - name: test
         run: npm run test
-
-      - name: Build frontend application
+      - name: build
         run: npm run build
 
-      - name: Lint frontend code
-        run: npm run lint  
+# name: CI
+
+# on:
+#   push:
+#     branches:
+#       - 'main'
+
+# jobs:
+#   build_frontend:
+#     runs-on: ubuntu-latest
+#     name: Build and Test Frontend
+#     defaults:
+#       run:
+#         working-directory: ./frontend
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Install dependencies
+#         run: npm install
+      
+#       - name: Run tests
+#         run: npm run test
+
+#       - name: Build frontend application
+#         run: npm run build
+
+#       - name: Lint frontend code
+#         run: npm run lint  
 
   # build_backend:
   #   runs-on: ubuntu-latest
