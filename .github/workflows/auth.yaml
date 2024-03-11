@@ -1,4 +1,4 @@
-name: backend
+name: auth
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
       - 'main'
 
 jobs:
-  build_backend:
+  build_auth:
     runs-on: ubuntu-latest
-    name: Build and Test Backend
+    name: Build and Test Auth
     defaults:
       run:
-        working-directory: ./backend
+        working-directory: ./auth
 
     steps:
       - name: Checkout repository

@@ -1,4 +1,4 @@
-name: backend
+name: statistics
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
       - 'main'
 
 jobs:
-  build_backend:
+  build_statistics:
     runs-on: ubuntu-latest
-    name: Build and Test Backend
+    name: Build and Test statistics
     defaults:
       run:
-        working-directory: ./backend
+        working-directory: ./statistics
 
     steps:
       - name: Checkout repository
