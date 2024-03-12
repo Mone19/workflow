@@ -1,0 +1,32 @@
+name: auth
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build_auth:
+    runs-on: ubuntu-latest
+    name: Build and Test Auth
+    defaults:
+      run:
+        working-directory: ./auth
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests
+        run: npm run test
+
+      - name: Build backend application
+        run: npm run build
+
+      - name: Lint backend code
+        run: npm run lint
