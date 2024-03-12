@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      tags:
+        - "v*"
 
 jobs:
   build:
@@ -19,32 +21,36 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Generate unique tag
-      id: generate_tag
-      run: |
-        TAG="v0.0.1-$(date '+%Y%m%d-%H%M%S')"
-        echo "TAG=$TAG" >> $GITHUB_ENV
+    - name: Generate tag
+      uses: actions/checkout@v4
+      with:
+        context: "."
+        platform: linux/amd64
+        push: true
+        tags: | 
+          "${{ github.respository }}:latest"
+          "${{ github.respository }}:${{ github.ref_name }}"
 
     - name: Build and push Docker image frontend
       run: |
         cd frontend
-        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend:${{ env.TAG }}
-        docker push aws2307/budgetbook-frontend:${{ env.TAG }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend
+        docker push aws2307/budgetbook-frontend
 
     - name: Build and push Docker image auth
       run: |
         cd auth
-        docker build . --file Dockerfile --tag aws2307/budgetbook-auth:${{ env.TAG }}
-        docker push aws2307/budgetbook-auth:${{ env.TAG }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-auth
+        docker push aws2307/budgetbook-auth
 
     - name: Build and push Docker image expense
       run: |
         cd expense
-        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:${{ env.TAG }}
-        docker push aws2307/budgetbook-expense:${{ env.TAG }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-expense
+        docker push aws2307/budgetbook-expense
 
     - name: Build and push Docker image statistics
       run: |
         cd statistics
-        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics:${{ env.TAG }}
-        docker push aws2307/budgetbook-statistics:${{ env.TAG }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics
+        docker push aws2307/budgetbook-statistics
