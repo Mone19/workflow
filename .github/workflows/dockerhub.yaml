@@ -30,3 +30,17 @@ jobs:
         cd auth
         docker build . --file Dockerfile --tag aws2307/budgetbook-auth:0.0.1
         docker push aws2307/budgetbook-auth:0.0.1
+
+
+    - name: Build and push Docker image expense
+      run: |
+        cd expense
+        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:0.0.1
+        docker push aws2307/budgetbook-expense:0.0.1
+
+
+    - name: Build and push Docker image stastics
+      run: |
+        cd statistics
+        docker build . --file Dockerfile --tag aws2307/budgetbook-stastics:0.0.1
+        docker push aws2307/budgetbook-stastics:0.0.1    
