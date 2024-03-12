@@ -3,7 +3,7 @@ name: expense
 on:
   push:
     branches:
-      - 'main'
+      - 'feature/**'
 
 jobs:
   build_expense:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: feature/github_workflow
 
       - name: Install dependencies
         run: npm install
