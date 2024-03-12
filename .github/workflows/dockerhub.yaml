@@ -19,30 +19,30 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Extract Git tag
-      id: extract_tag
-      run: echo "::set-output name=tag::${GITHUB_SHA::8}"
+    - name: Generate unique tag
+      id: generate_tag
+      run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
 
     - name: Build and push Docker image frontend
       run: |
         cd frontend
-        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend:${{ steps.extract_tag.outputs.tag }}
-        docker push aws2307/budgetbook-frontend:${{ steps.extract_tag.outputs.tag }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend:${{ env.TAG }}
+        docker push aws2307/budgetbook-frontend:${{ env.TAG }}
 
     - name: Build and push Docker image auth
       run: |
         cd auth
-        docker build . --file Dockerfile --tag aws2307/budgetbook-auth:${{ steps.extract_tag.outputs.tag }}
-        docker push aws2307/budgetbook-auth:${{ steps.extract_tag.outputs.tag }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-auth:${{ env.TAG }}
+        docker push aws2307/budgetbook-auth:${{ env.TAG }}
 
     - name: Build and push Docker image expense
       run: |
         cd expense
-        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:${{ steps.extract_tag.outputs.tag }}
-        docker push aws2307/budgetbook-expense:${{ steps.extract_tag.outputs.tag }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:${{ env.TAG }}
+        docker push aws2307/budgetbook-expense:${{ env.TAG }}
 
     - name: Build and push Docker image statistics
       run: |
         cd statistics
-        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics:${{ steps.extract_tag.outputs.tag }}
-        docker push aws2307/budgetbook-statistics:${{ steps.extract_tag.outputs.tag }}
+        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics:${{ env.TAG }}
+        docker push aws2307/budgetbook-statistics:${{ env.TAG }}
