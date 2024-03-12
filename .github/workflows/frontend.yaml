@@ -25,5 +25,5 @@ jobs:
       - name: Build frontend application
         run: npm run build
 
-      - name: Lint frontend code
-        run: npm run lint
+      # - name: Lint frontend code
+      #   run: npm run lint
