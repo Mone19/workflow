@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v0.0.*'  
 
 jobs:
   build:
@@ -23,14 +21,7 @@ jobs:
 
     - name: Extract Git tag
       id: extract_tag
-      run: echo "::set-output name=tag::${GITHUB_REF/refs\/tags\//}"
-
-    - name: Check if tag starts with 'v0.0.1'
-      run: |
-        if [[ "${{ steps.extract_tag.outputs.tag }}" != v0.0.1* ]]; then
-          echo "Tag does not match expected format. Exiting..."
-          exit 1
-        fi  
+      run: echo "::set-output name=tag::${GITHUB_SHA::8}"
 
     - name: Build and push Docker image frontend
       run: |
@@ -44,16 +35,14 @@ jobs:
         docker build . --file Dockerfile --tag aws2307/budgetbook-auth:${{ steps.extract_tag.outputs.tag }}
         docker push aws2307/budgetbook-auth:${{ steps.extract_tag.outputs.tag }}
 
-
     - name: Build and push Docker image expense
       run: |
         cd expense
         docker build . --file Dockerfile --tag aws2307/budgetbook-expense:${{ steps.extract_tag.outputs.tag }}
         docker push aws2307/budgetbook-expense:${{ steps.extract_tag.outputs.tag }}
 
-
-    - name: Build and push Docker image stastics
+    - name: Build and push Docker image statistics
       run: |
         cd statistics
-        docker build . --file Dockerfile --tag aws2307/budgetbook-stastics:${{ steps.extract_tag.outputs.tag }}
-        docker push aws2307/budgetbook-stastics:${{ steps.extract_tag.outputs.tag }}    
+        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics:${{ steps.extract_tag.outputs.tag }}
+        docker push aws2307/budgetbook-statistics:${{ steps.extract_tag.outputs.tag }}
