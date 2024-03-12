@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v0.0.*'  
 
 jobs:
   build:
@@ -19,28 +21,39 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
+    - name: Extract Git tag
+      id: extract_tag
+      run: echo "::set-output name=tag::${GITHUB_REF/refs\/tags\//}"
+
+    - name: Check if tag starts with 'v0.0.1'
+      run: |
+        if [[ "${{ steps.extract_tag.outputs.tag }}" != v0.0.1* ]]; then
+          echo "Tag does not match expected format. Exiting..."
+          exit 1
+        fi  
+
     - name: Build and push Docker image frontend
       run: |
         cd frontend
-        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend:0.0.1
-        docker push aws2307/budgetbook-frontend:0.0.1
+        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend:${{ steps.extract_tag.outputs.tag }}
+        docker push aws2307/budgetbook-frontend:${{ steps.extract_tag.outputs.tag }}
 
     - name: Build and push Docker image auth
       run: |
         cd auth
-        docker build . --file Dockerfile --tag aws2307/budgetbook-auth:0.0.1
-        docker push aws2307/budgetbook-auth:0.0.1
+        docker build . --file Dockerfile --tag aws2307/budgetbook-auth:${{ steps.extract_tag.outputs.tag }}
+        docker push aws2307/budgetbook-auth:${{ steps.extract_tag.outputs.tag }}
 
 
     - name: Build and push Docker image expense
       run: |
         cd expense
-        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:0.0.1
-        docker push aws2307/budgetbook-expense:0.0.1
+        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:${{ steps.extract_tag.outputs.tag }}
+        docker push aws2307/budgetbook-expense:${{ steps.extract_tag.outputs.tag }}
 
 
     - name: Build and push Docker image stastics
       run: |
         cd statistics
-        docker build . --file Dockerfile --tag aws2307/budgetbook-stastics:0.0.1
-        docker push aws2307/budgetbook-stastics:0.0.1    
+        docker build . --file Dockerfile --tag aws2307/budgetbook-stastics:${{ steps.extract_tag.outputs.tag }}
+        docker push aws2307/budgetbook-stastics:${{ steps.extract_tag.outputs.tag }}    
