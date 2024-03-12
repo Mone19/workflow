@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-      tags:
-        - "v*"
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -21,36 +21,26 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Generate tag
-      uses: actions/checkout@v4
-      with:
-        context: "."
-        platform: linux/amd64
-        push: true
-        tags: | 
-          "${{ github.respository }}:latest"
-          "${{ github.respository }}:${{ github.ref_name }}"
-
     - name: Build and push Docker image frontend
       run: |
         cd frontend
-        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend
-        docker push aws2307/budgetbook-frontend
+        docker build . --file Dockerfile --tag aws2307/budgetbook-frontend:${{ github.ref_name }}
+        docker push aws2307/budgetbook-frontend:${{ github.ref_name }}
 
     - name: Build and push Docker image auth
       run: |
         cd auth
-        docker build . --file Dockerfile --tag aws2307/budgetbook-auth
-        docker push aws2307/budgetbook-auth
+        docker build . --file Dockerfile --tag aws2307/budgetbook-auth:${{ github.ref_name }}
+        docker push aws2307/budgetbook-auth:${{ github.ref_name }}
 
     - name: Build and push Docker image expense
       run: |
         cd expense
-        docker build . --file Dockerfile --tag aws2307/budgetbook-expense
-        docker push aws2307/budgetbook-expense
+        docker build . --file Dockerfile --tag aws2307/budgetbook-expense:${{ github.ref_name }}
+        docker push aws2307/budgetbook-expense:${{ github.ref_name }}
 
     - name: Build and push Docker image statistics
       run: |
         cd statistics
-        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics
-        docker push aws2307/budgetbook-statistics
+        docker build . --file Dockerfile --tag aws2307/budgetbook-statistics:${{ github.ref_name }}
+        docker push aws2307/budgetbook-statistics:${{ github.ref_name }}
