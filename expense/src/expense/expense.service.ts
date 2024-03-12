@@ -7,7 +7,7 @@ import { Expense } from '../entity/expense.entity';
 export class ExpenseService {
   constructor(
     @InjectRepository(Expense) private expenseRepository: Repository<Expense>,
-  ) { }
+  ) {}
 
   async findAll(
     req: any,
