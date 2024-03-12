@@ -1,0 +1,32 @@
+name: expense
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build_expense:
+    runs-on: ubuntu-latest
+    name: Build and Test expense
+    defaults:
+      run:
+        working-directory: ./expense
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install dependencies
+        run: npm install
+      
+      # - name: Run tests
+      #   run: npm run test
+
+      - name: Build backend application
+        run: npm run build
+
+      - name: Lint backend code
+        run: npm run lint
