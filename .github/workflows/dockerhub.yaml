@@ -22,7 +22,7 @@ jobs:
     - name: tag
       id: generate_tag
       run: |
-        TAG="v0.0.1"
+        TAG="v0.0.*"
         echo "TAG=$TAG" >> $GITHUB_ENV
 
     - name: Build and push Docker image frontend
